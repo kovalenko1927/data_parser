@@ -9,14 +9,14 @@ import pandas as pd
 from itemadapter import ItemAdapter
 
 
-class ComfyCSVPipeline:
+class CSVPipeline:
     def __init__(self):
         self.data = pd.DataFrame()
 
     def process_item(self, item, spider):
         main_data = ItemAdapter(item).asdict()
-        df = pd.DataFrame.from_records([main_data])
-        self.data = pd.concat([self.data, df], ignore_index=True)
+        data_frame = pd.DataFrame.from_records([main_data])
+        self.data = pd.concat([self.data, data_frame], ignore_index=True)
 
         return item
 

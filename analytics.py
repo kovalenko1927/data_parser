@@ -21,7 +21,7 @@ def perform_analysis(data_file):
 
     # Median markdown percent
     markdown_percent = (discounted_products['product_price_regular'] - discounted_products['product_price']) / \
-                       discounted_products['product_price_regular']
+        discounted_products['product_price_regular']
     median_markdown_percent = round(markdown_percent.median(), 4)
 
     # Outputting results

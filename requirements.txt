@@ -1,8 +1,0 @@
-flake8==6.0.0
-isort==5.12.0
-pandas==2.0.1
-Scrapy==2.9.0
-scrapy-selenium==0.0.7
-selenium==4.9.1
-webdriver-manager==3.8.6
-

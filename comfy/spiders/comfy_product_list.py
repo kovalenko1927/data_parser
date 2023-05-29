@@ -4,9 +4,9 @@ from datetime import datetime
 import scrapy
 from itemloaders.processors import TakeFirst
 from scrapy.loader import ItemLoader
-from scrapy.utils.response import open_in_browser
 from scrapy_selenium import SeleniumRequest
 
+from comfy.const import SELENIUM_WAITING_TIME
 from comfy.items import ComfyItem
 
 logger = logging.getLogger('__main__')
@@ -18,7 +18,7 @@ class ComfyProductsListSpider(scrapy.Spider):
 
     def start_requests(self):
         url = "https://comfy.ua/ua/"
-        yield SeleniumRequest(url=url, callback=self.parse, wait_time=10)
+        yield SeleniumRequest(url=url, callback=self.parse, wait_time=SELENIUM_WAITING_TIME)
 
     def parse(self, response, **kwargs):
         # Get 18 main categories and go to them
@@ -47,7 +47,7 @@ class ComfyProductsListSpider(scrapy.Spider):
     def parse_product(self, response):
         loader = ItemLoader(item=ComfyItem(), response=response)
         loader.default_output_processor = TakeFirst()
-        loader.add_value('scanned_time', datetime.now().isoformat())
+        loader.add_value('scanned_time', datetime.utcnow().isoformat())
         loader.add_value('product_url', response.url)
         loader.add_css('product_title', "h1.gen-tab__name::text")
         loader.add_css('product_sku', 'span.i-main__sku::text', re=r'Код: (.+)')
@@ -59,12 +59,7 @@ class ComfyProductsListSpider(scrapy.Spider):
         link_available = response.css('span.base-button__text::text')
         if link_available:
             is_available = response.css('span.base-button__text::text').get().strip() == 'Купити'
-            if not is_available:
-                open_in_browser(response)
             loader.add_value('product_availability', is_available)
-        else:
-            open_in_browser(response)
-            loader.add_value('product_availability', False)
         loader.add_css('product_price', 'div.price__current::text', re=r'\d+.?\d+')
         loader.add_css('product_price_regular', 'div.price__old::text', re=r'\d+.?\d+')
         cashback_link = response.css('span.bonus-label-value::text')

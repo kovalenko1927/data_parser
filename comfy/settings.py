@@ -1,3 +1,7 @@
+from shutil import which
+
+from comfy.const import COMFY_COOKIES
+
 # Scrapy settings for comfy project
 #
 # For simplicity, this file contains only settings considered important or
@@ -42,23 +46,7 @@ DEFAULT_REQUEST_HEADERS = {
     "Accept-Language": "en",
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/113.0.0.0 Safari/537.36",
-    "Cookie": "nlbi_1858972=JjpSer+P5j/rH1RVTxwWFAAAAAAYnBQhkLbYKNNcUJ+LCNIf; frontend=bo0fklmysx56hefwij5awo8l5i; "
-              "digi_user_cookie=0%3Ali4phpnm%3A3fd3af-00a9a9-7cd009-00936c-507425; guest_quote_id=787756263; "
-              "customer_group=0; esputnicSimilatAbTestCookie=r776v1546; active_city_id=506; X-Store=1; "
-              "_userGUID=0:li4pso2s:93zdSzOuhZMkkGcXGTi_1Pkr8KG1_G6Y; "
-              "pa=1685133482022.5680.8031633131950557comfy.ua0.403146652394494+1; "
-              "visid_incap_1858972=1BMKjoSMTAOEc651NUrOG1zNcGQAAAAAQkIPAAAAAACAWo2sAdRaPjOsqxC1UwhCsZ/EuHT/cXvO; "
-              "fp=32; lfp=10/27/2022, 11:38:35 PM; "
-              "incap_ses_1083_1858972=dIkWJJJZeDWhNj75MpgHD4ONcWQAAAAAP6aU96F0R6Cy6jsSwbmqHg==; "
-              "nlbi_1858972_2147483392=Pwv/ZbjkJWJ5TGoqTxwWFAAAAACu7OnvI+J6HCy1ReI/Qp7B; "
-              "incap_ses_451_1858972=ELj6a1lY2w1QO2I+DEdCBo6fcWQAAAAAX/KUBobYWdFnmPYcwAQYeQ==; "
-              "reese84=3:Jdfeak3+uUiPS4TYD7rucQ"
-              "==:g1JBRvyWqQaOu6pkGU974AVn4T59pCfQCmaiYD7OnrRv0mpRVJ4gfzDePW6zwwqLkPmmopH2eb3PfmaZUvMrElOFl7"
-              "/MC6otpt1l8S+GP2InhlaRMQBgJkYEd8OZZy1vKgIEM92Vn6qbBzkAn2sL27Aisdgil//nCIdj7PDdRk0PYDmFyXl"
-              "+XYLLVOYFPwptvKRLXDsuocdaXf1TjsQJGGJVPsaP+W"
-              "/usacPErBaGOdlNCtK7TiWOH4bmcLakOvbPsnDT5EUbbR7ofNmFzUdnHKsOdRqI11XPayWFdS4o3Tb0cZZFmxyXyO3IZUDdibVDYYLXJ"
-              "tpsPz+3J1xF0+OmYn0GC32rjf5Wp1sJCoIKu1ZMra4owYhIuNDkHQfxer69rWZ9+aWi7hBDm7m1hZfrMkte+BrdTZ4d5/Aow1W1FaJih"
-              "hy1s7fIIQsmA8ZYkIII1qwF9kH5wV/maVQg8mqLA==:k6yj868i5iBIq71leGgOD/GZ8deDB9IbO7969bIm7L0= "
+    "Cookie": COMFY_COOKIES,
 }
 
 # Enable or disable spider middlewares
@@ -71,7 +59,6 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 
 # SERIALIZATION_ENABLED = False
-from shutil import which
 
 SELENIUM_DRIVER_NAME = 'firefox'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
@@ -90,7 +77,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "comfy.pipelines.ComfyCSVPipeline": 300,
+    "comfy.pipelines.CSVPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
